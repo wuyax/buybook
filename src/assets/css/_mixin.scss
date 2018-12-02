@@ -1,0 +1,5 @@
+@mixin flex ($fc: space-between, $ai: center){
+  display: flex;
+  justify-content: $fc;
+  align-items: $ai;
+}
