@@ -1,28 +1,80 @@
 <template>
   <div class="home-page">
     <p>Welcome to Buybook</p>
+    <button @click="disAction">提交一个action</button>
+    <p>{{changeName2 && changeName2.age}}</p>
+    <!-- watch test -->
+    <button @click.stop="changeArray">改变数组的值</button>
+    <List></List>
   </div>
 </template>
 <script>
 // https://cn.vuejs.org/v2/style-guide/#组件-实例的选项的顺序-推荐
+// import { mapState, mapActions } from 'vuex'
+import AppState from '@/assets/js/appState'
+import List from './list'
 export default {
-  name: 'Index',
-  components: {},
+  name: 'IndexPage',
+  components: {
+    List
+  },
   model: {},
   props: {},
   data() {
-    return {}
+    return {
+      list: [
+        { name: 'list1' },
+        { name: 'list2' },
+        { name: 'list3' },
+        { name: 'list4' }
+      ]
+    }
   },
-  computed: {},
-  watch: {},
+  computed: {
+    // ...mapState(['changeName2'])
+    ...AppState.getState(['changeName2','test'])
+  },
+  watch: {
+    changeName2: {
+      handler: function(nv, ov) {
+        console.log(nv.age)
+      }
+    },
+    list: {
+      handler: function(nv, ov) {
+        console.log(nv)
+      },
+      deep: true
+    }
+  },
   created() {},
-  mounted() {},
+  mounted() {
+    AppState.regist('changeName2',{age: 12})
+  },
   beforeDestroy() {},
-  methods: {}
+  methods: {
+    // ...mapActions(['publish']),
+    disAction() {
+      AppState.updated('changeName2', { name: 'zhang', age: Math.random() })
+      /* this.publish({
+        TOPIC: 'changeName2',
+        name: 'zhangsan',
+        age: Math.random()
+      })
+      this.pubsub.publish() */
+      // this.pubsub.publish('TOPIC', { name: 'zhangsan', age: Math.random() })
+      /* this.pubsub.publish('changeName2', {
+        name: 'zhangsan',
+        age: Math.random()
+      }) */
+    },
+    changeArray() {
+      this.list[1].name = 'listx'
+    }
+  }
 }
 </script>
 <style lang="scss" scoped>
 .home-page {
-  
 }
 </style>
