@@ -3,6 +3,7 @@
     <p>{{changeName2 && changeName2.age}}</p>
     <button @click="beginSub">开始订阅</button>
     <button @click="cancelSub">取消订阅</button>
+    <button @click.stop='globeMethod'>发布全局方法</button>
   </div>
 </template>
 <script>
@@ -22,12 +23,14 @@ export default {
   watch: {
     changeName2: {
       handler: function(nv, ov) {
-        console.log(nv.age)
+        console.log(nv.age, ov)
       }
     }
   },
   created() {},
-  mounted() {},
+  mounted() {
+    this.$messenger.regist('teta')
+  },
   beforeDestroy() {},
   methods: {
     beginSub() {
@@ -37,6 +40,9 @@ export default {
     },
     cancelSub() {
       this.pubsub.unsubscribe('TOPIC')
+    },
+    globeMethod() {
+      this.$messenger.publish('teta', {name: 'test'})
     }
   }
 }

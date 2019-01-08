@@ -5,7 +5,13 @@
     <p>{{changeName2 && changeName2.age}}</p>
     <!-- watch test -->
     <button @click.stop="changeArray">改变数组的值</button>
-    <List></List>
+    <List v-loadOrder='0'></List>
+    <!-- <List v-loadOrder='1'></List> -->
+    <!-- <List v-loadOrder='4'></List> -->
+    <!-- <List v-loadOrder='3'></List> -->
+    <!-- <List v-loadOrder='2'></List> -->
+    <!-- <Upload></Upload> -->
+    <TestUtil></TestUtil>
   </div>
 </template>
 <script>
@@ -13,10 +19,14 @@
 // import { mapState, mapActions } from 'vuex'
 import AppState from '@/assets/js/appState'
 import List from './list'
+import TestUtil from '@/views/Home/testutil.vue'
 export default {
   name: 'IndexPage',
+  myOption: '测试测试',
   components: {
-    List
+    List,
+    // Upload: () => import('@/views/Home/upload.vue'),
+    TestUtil
   },
   model: {},
   props: {},
@@ -32,24 +42,24 @@ export default {
   },
   computed: {
     // ...mapState(['changeName2'])
-    ...AppState.getState(['changeName2','test'])
+    ...AppState.getState(['changeName2', 'test'])
   },
   watch: {
     changeName2: {
       handler: function(nv, ov) {
-        console.log(nv.age)
+        console.log(nv.age, ov)
       }
     },
     list: {
       handler: function(nv, ov) {
-        console.log(nv)
+        console.log(nv, ov)
       },
       deep: true
     }
   },
   created() {},
   mounted() {
-    AppState.regist('changeName2',{age: 12})
+    AppState.regist('changeName2', { age: 12 })
   },
   beforeDestroy() {},
   methods: {

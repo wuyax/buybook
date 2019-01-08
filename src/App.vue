@@ -7,6 +7,7 @@
 <script>
   import Nav from '@/views/Nav/navigation.vue'
   export default {
+    myOption: 'root',
     components: {
       Nav
     }

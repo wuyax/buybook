@@ -13,4 +13,7 @@ export default {
   /* UPDATESTATE(state, payload) {
     state[payload.TOPIC] = payload.value
   } */
+  UPDATECURRENTORDER(state, payload) {
+    state.currentOrder = payload
+  }
 }

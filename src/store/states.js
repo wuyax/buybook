@@ -1,5 +1,6 @@
 /*eslint-disable*/
 const states = {
-  name: 'zhang'
+  name: 'zhang',
+  currentOrder: 0
 }
 export default states
