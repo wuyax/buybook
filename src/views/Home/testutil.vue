@@ -12,8 +12,9 @@
 </template>
 <script>
 // https://cn.vuejs.org/v2/style-guide/#组件-实例的选项的顺序-推荐
-import JFE from 'jflib'
-import {util} from 'jflib'
+// import JFE from 'jflib'
+// import {util} from 'jflib'
+import isqueal from 'lodash.isequal'
 export default {
   name: 'TestUtileee',
   components: {},
@@ -27,7 +28,8 @@ export default {
   computed: {},
   watch: {},
   created() {},
-  mounted() {},
+  mounted() {
+  },
   beforeDestroy() {},
   methods: {
     shuffleTheArr() {

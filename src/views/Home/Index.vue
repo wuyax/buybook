@@ -20,6 +20,7 @@
 import AppState from '@/assets/js/appState'
 import List from './list'
 import TestUtil from '@/views/Home/testutil.vue'
+
 export default {
   name: 'IndexPage',
   myOption: '测试测试',
@@ -59,6 +60,7 @@ export default {
   },
   created() {},
   mounted() {
+    // console.log(chunk)
     AppState.regist('changeName2', { age: 12 })
   },
   beforeDestroy() {},

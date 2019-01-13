@@ -2,7 +2,8 @@ const path = require('path')
 const container = require('markdown-it-container')
 
 module.exports = {
-  dest: '../../vuepress',
+  dest: './docs/.vuepress/dist',
+  base: '/docs/',
   lang: 'zh-CN',
   title: '组件库',
   description: '前端组件库',
