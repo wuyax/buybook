@@ -1,9 +1,12 @@
 <template>
   <div class="list">
     <p>{{changeName2 && changeName2.age}}</p>
-    <button @click="beginSub">开始订阅</button>
-    <button @click="cancelSub">取消订阅</button>
+    <!-- <button @click="beginSub">开始订阅</button> -->
+    <!-- <button @click="cancelSub">取消订阅</button> -->
     <button @click.stop='globeMethod'>发布全局方法</button>
+    <br/>
+    <button @click.stop='busEv'>bus事件</button>
+    <input type="text" v-model="busmessage">
   </div>
 </template>
 <script>
@@ -15,7 +18,9 @@ export default {
   model: {},
   props: {},
   data() {
-    return {}
+    return {
+      busmessage:''
+    }
   },
   computed: {
     ...mapState(['changeName2'])
@@ -33,16 +38,11 @@ export default {
   },
   beforeDestroy() {},
   methods: {
-    beginSub() {
-      this.pubsub.subscribe('TOPIC', (msg, data) => {
-        console.log(`${msg}订阅了${data.age}`)
-      })
-    },
-    cancelSub() {
-      this.pubsub.unsubscribe('TOPIC')
-    },
     globeMethod() {
       this.$messenger.publish('teta', {name: 'test'})
+    },
+    busEv() {
+      this.$bus.$emit('message', this.busmessage)
     }
   }
 }

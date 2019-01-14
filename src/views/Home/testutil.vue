@@ -1,44 +1,37 @@
 <template>
   <div class="test-util">
-    <p>工具测试</p>
+    <p>测试事件总线</p>
     <div>
-      <button @click.stop="shuffleTheArr">shuffle</button>
-      <button @click.stop="uniqueTheArr">unique</button>
+      <!-- <button @click.stop="shuffleTheArr">shuffle</button>
+      <button @click.stop="uniqueTheArr">unique</button> -->
     </div>
-    <p>{{a}}</p>
+    <p>{{busValue}}</p>
     <div>
     </div>
   </div>
 </template>
 <script>
 // https://cn.vuejs.org/v2/style-guide/#组件-实例的选项的顺序-推荐
-// import JFE from 'jflib'
-// import {util} from 'jflib'
-import isqueal from 'lodash.isequal'
 export default {
-  name: 'TestUtileee',
+  name: 'TestUtil',
   components: {},
   model: {},
   props: {},
   data() {
     return {
-      a: [3, 4, 4, 33, 4, 3, 4]
+      busValue: ''
     }
   },
   computed: {},
   watch: {},
-  created() {},
-  mounted() {
+  created() {
+    this.$bus.$on('message', value => {
+      this.busValue = value
+    })
   },
+  mounted() {},
   beforeDestroy() {},
-  methods: {
-    shuffleTheArr() {
-      this.a = JFE.util.arrShuffle(this.a)
-    },
-    uniqueTheArr() {
-      this.a = util.unique(this.a)
-    }
-  }
+  methods: {}
 }
 </script>
 <style lang="scss" scoped>

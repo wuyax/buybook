@@ -3,15 +3,16 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 import readXlsx from './plugin/readXlsx.js'
-import pubsub from '@/assets/js/pubsub.js'
+import bus from '@/assets/js/bus'
 import messenger from '@/assets/js/plugin.js'
-// import PubSub from 'pubsub-js'
+import PubSub from 'pubsub-js'
 
 import '@/assets/css/index.scss'
-Vue.prototype.pubsub = pubsub
+Vue.prototype.pubsub = PubSub
 Vue.config.productionTip = false;
 Vue.use(readXlsx);
 Vue.use(messenger)
+Vue.use(bus)
 
 Vue.directive('loadOrder', {
   // 当被绑定的元素插入到 DOM 中时……
