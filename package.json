@@ -11,7 +11,7 @@
     "docs:build": "vuepress build docs"
   },
   "dependencies": {
-    "jflib": "^1.0.1",
+    "axios": "^0.18.0",
     "lodash": "^4.17.11",
     "pubsub-js": "^1.7.0",
     "vue": "^2.5.21",

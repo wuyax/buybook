@@ -6,11 +6,7 @@
     <!-- watch test -->
     <button @click.stop="changeArray">改变数组的值</button>
     <List v-loadOrder='0'></List>
-    <!-- <List v-loadOrder='1'></List> -->
-    <!-- <List v-loadOrder='4'></List> -->
-    <!-- <List v-loadOrder='3'></List> -->
-    <!-- <List v-loadOrder='2'></List> -->
-    <!-- <Upload></Upload> -->
+    <cdn></cdn>
     <TestUtil></TestUtil>
   </div>
 </template>
@@ -19,6 +15,7 @@
 // import { mapState, mapActions } from 'vuex'
 import AppState from '@/assets/js/appState'
 import List from './list'
+import cdn from './cdn'
 import TestUtil from '@/views/Home/testutil.vue'
 
 export default {
@@ -27,7 +24,8 @@ export default {
   components: {
     List,
     // Upload: () => import('@/views/Home/upload.vue'),
-    TestUtil
+    TestUtil,
+    cdn
   },
   model: {},
   props: {},

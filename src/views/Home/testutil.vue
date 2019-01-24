@@ -5,30 +5,12 @@
     <button @click="parseImg">解析图片</button>
     <div class="upload">
       <input type="file"
+        ref="uploader"
         class="file"
         @change="getFile">
     </div>
     <div id="box">
-      <p>test</p>
-      <p>test</p>
-      <p>test</p>
-      <p>test</p>
-      <p>test</p>
-      <p>test</p>
-      <p>test</p>
-      <p>test</p>
-      <p>test</p>
-      <p>test</p>
-      <p>test</p>
-      <p>test</p>
-      <p>test</p>
-      <p>test</p>
-      <p>test</p>
-      <p>test</p>
-      <p>test</p>
-      <p>test</p>
-      <p>test</p>
-      <p>test</p>
+      <p>{{result}}</p>
       <p v-for="(test, index) in tests"
         :key="index">{test}</p>
 
@@ -47,7 +29,8 @@ import ScrollLoad from '@/assets/js/scroll-loading.js'
 import jsonToImg from '@/assets/js/jsonToImg.js'
 import { imgToJson } from '@/assets/js/jsonToImg.js'
 import img from '@/assets/img/image.png'
-
+import Stats from '@/assets/js/Stats.js'
+import util from '@/assets/js/dtc.util.es.js'
 export default {
   name: 'TestUtil',
   components: {},
@@ -73,7 +56,8 @@ export default {
         age: 18
       },
       scrollIns: null,
-      tests: []
+      tests: [],
+      result: {}
     }
   },
   computed: {},
@@ -87,7 +71,31 @@ export default {
       // this.initScroll()
     })
   },
-  mounted() {},
+  mounted() {
+    let option = {
+      dragable: true,
+      x: 0,
+      y: 0,
+      container: '#app'
+    }
+    var stats = new Stats(option)
+    // stats.showPanel(0) // 0: fps, 1: ms, 2: mb, 3+: custom
+
+    function animate() {
+      // stats.begin()
+
+      // monitored code goes here
+
+      stats.update()
+
+      requestAnimationFrame(animate)
+    }
+
+    requestAnimationFrame(animate)
+    let b = new util.Browser()
+    console.log(b)
+    
+  },
   beforeDestroy() {},
   methods: {
     initScroll() {
@@ -141,19 +149,18 @@ export default {
     getFile(ev) {
       let reader = new FileReader()
       reader.readAsArrayBuffer(ev.target.files[0])
-      reader.onload = function(ev) {
-        // console.log(ev.target.result)
-        console.log(reader.result)
-          imgToJson(reader.result)
-        
-        /* var buf = new Uint8Array(reader.result)
-        reader.readAsText(new Blob([buf]), 'utf-8')
-        reader.onload = function() {
-          // console.info(reader.result) //中文字符串
-        } */
+      // arrow function处理this指向问题
+      reader.onload = ev => {
+        // array buffer to json
+        imgToJson(reader.result).then(result => {
+          this.result = result
+          // 处理选择相同文件不触发change事件
+          this.$refs.uploader.value = ''
+        })
       }
-      // let json = imgToJson(result)
-      // console.log(result)
+    },
+    sentCDNpr() {
+      
     }
   }
 }
